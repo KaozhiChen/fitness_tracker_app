@@ -27,6 +27,10 @@ class _RootAppState extends State<RootApp> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: pageIndex,
         onTap: (index) {
+          if (index == 2) {
+            // tap profile navigate to login page
+            Navigator.pushNamed(context, '/login');
+          }
           setState(() {
             pageIndex = index;
           });
