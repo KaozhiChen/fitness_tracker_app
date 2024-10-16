@@ -27,15 +27,12 @@ class _RootAppState extends State<RootApp> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: pageIndex,
         onTap: (index) {
-          if (index == 2) {
-            // tap profile navigate to login page
-            Navigator.pushNamed(context, '/login');
-          }
           setState(() {
             pageIndex = index;
           });
         },
         selectedItemColor: thirdColor,
+        enableFeedback: false,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'Chart'),
