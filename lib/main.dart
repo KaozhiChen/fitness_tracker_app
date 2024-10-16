@@ -1,4 +1,4 @@
-import 'package:fitness_tracker_app/pages/root_app.dart';
+// import 'package:fitness_tracker_app/pages/root_app.dart';
 import 'package:flutter/material.dart';
 import 'router.dart' as router;
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fitness Tracker App',
-      initialRoute: '/root_app',
+      initialRoute: '/login',
       onGenerateRoute: router.generateRoute,
     );
   }
