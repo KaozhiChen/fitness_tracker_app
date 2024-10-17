@@ -218,6 +218,28 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    // ignore: prefer_const_constructors
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Do not have an account? '),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/signup');
+                          },
+                          child: const Text(
+                            'Sign UP',
+                            style: TextStyle(
+                              color: primary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 )
