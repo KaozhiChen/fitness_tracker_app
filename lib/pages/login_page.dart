@@ -1,6 +1,7 @@
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'signup_sheet.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +12,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
+
+  void _showSignUpBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+        builder: (BuildContext context) {
+          return const SignUpBottomSheet();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,8 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, "/root_app", (route) => false);
+                        Navigator.pushNamed(context, '/root_app');
                       },
                       child: Container(
                         height: 50,
@@ -229,7 +241,7 @@ class _LoginPageState extends State<LoginPage> {
                         const Text('Do not have an account? '),
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, '/signup');
+                            _showSignUpBottomSheet();
                           },
                           child: const Text(
                             'Sign UP',

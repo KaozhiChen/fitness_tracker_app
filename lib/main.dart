@@ -1,4 +1,3 @@
-// import 'package:fitness_tracker_app/pages/root_app.dart';
 import 'package:flutter/material.dart';
 import 'router.dart' as router;
 
