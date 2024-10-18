@@ -1,3 +1,5 @@
+import 'package:fitness_tracker_app/models/user.dart';
+import 'package:fitness_tracker_app/services/database_helper.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +14,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   void _showSignUpBottomSheet() {
     showModalBottomSheet(
@@ -72,14 +76,16 @@ class _LoginPageState extends State<LoginPage> {
                         child: Row(
                           children: [
                             Icon(
-                              Icons.mail_outline,
+                              Icons.account_box_outlined,
                               color: black.withOpacity(0.5),
                             ),
                             const SizedBox(width: 12),
                             Flexible(
                                 child: TextField(
+                              controller: _usernameController,
                               decoration: const InputDecoration(
-                                  labelText: "Email", border: InputBorder.none),
+                                  labelText: "Username",
+                                  border: InputBorder.none),
                               cursorColor: black.withOpacity(0.5),
                             ))
                           ],
@@ -106,6 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                             const SizedBox(width: 12),
                             Flexible(
                                 child: TextField(
+                              controller: _passwordController,
                               obscureText: _obscureText,
                               decoration: InputDecoration(
                                   labelText: "Password",
@@ -146,8 +153,22 @@ class _LoginPageState extends State<LoginPage> {
                 Column(
                   children: [
                     InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/root_app');
+                      onTap: () async {
+                        final messenger = ScaffoldMessenger.of(context);
+                        final navigator = Navigator.of(context);
+                        String username = _usernameController.text;
+                        String password = _passwordController.text;
+                        User? user = await DatabaseHelper()
+                            .validateLogin(username, password);
+                        if (user != null) {
+                          // login successfully
+                          navigator.pushNamed('/root_app');
+                        } else {
+                          messenger.showSnackBar(
+                            const SnackBar(
+                                content: Text('Invalid username or password')),
+                          );
+                        }
                       },
                       child: Container(
                         height: 50,

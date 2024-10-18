@@ -1,3 +1,6 @@
+// import 'dart:convert';
+import 'package:fitness_tracker_app/models/user.dart';
+import 'package:fitness_tracker_app/services/database_helper.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -186,8 +189,40 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
 
                 // Sign Up Button
                 InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/root_app');
+                  onTap: () async {
+                    final messeger = ScaffoldMessenger.of(context);
+                    final navigator = Navigator.of(context);
+                    if (_formKey.currentState!.validate()) {
+                      try {
+                        User newUser = User(
+                          username: _usernameController.text,
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          gender: _seletedGender!,
+                          age: int.parse(_ageController.text),
+                        );
+
+                        await DatabaseHelper().insertUser(newUser);
+
+                        // query all users
+                        // List<User> allUsers =
+                        //     await DatabaseHelper().getAllUsers();
+
+                        // String jsonAllUsers = jsonEncode(
+                        //     allUsers.map((user) => user.toMap()).toList());
+                        // print(jsonAllUsers);
+
+                        messeger.showSnackBar(
+                          const SnackBar(
+                              content: Text('Registration Successful')),
+                        );
+                        navigator.pop();
+                      } catch (e) {
+                        messeger.showSnackBar(
+                          SnackBar(content: Text('Error: $e')),
+                        );
+                      }
+                    }
                   },
                   child: Container(
                     height: 50,
