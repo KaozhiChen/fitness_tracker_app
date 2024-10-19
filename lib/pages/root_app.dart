@@ -1,4 +1,5 @@
 import 'package:fitness_tracker_app/pages/home_page.dart';
+import 'package:fitness_tracker_app/pages/profile.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +19,11 @@ class _RootAppState extends State<RootApp> {
       body: IndexedStack(
         index: pageIndex,
         children: const [
-          HomePage(),
           // here to display different pages, do this like home page
+          // the order of pages should be consistent with the navigation order
+          HomePage(),
           Center(child: Text('Chart Page')),
-          Center(child: Text('Profile Page')),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
