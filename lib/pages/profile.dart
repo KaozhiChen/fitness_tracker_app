@@ -15,7 +15,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _ageController = TextEditingController();
 
   String? _selectedGender;
-  double _stepGoal = 10000; // 默认步数目标
+  double _stepGoal = 10000;
 
   bool _notificationsEnabled = true;
   bool _darkMode = false;
@@ -33,7 +33,6 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 个人信息部分
               const Text(
                 'Personal Information',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -57,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
                   }
-                  // 简单的邮箱验证
+
                   if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
                     return 'Please enter a valid email';
                   }
@@ -97,8 +96,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               const SizedBox(height: 32),
-
-              // 目标调整部分
               const Text(
                 'Goals',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -118,8 +115,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               const SizedBox(height: 32),
-
-              // 偏好设置部分
               const Text(
                 'Preferences',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -143,13 +138,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   });
                 },
               ),
-
               const SizedBox(height: 32),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // 保存设置逻辑
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Settings Updated')),
                       );
