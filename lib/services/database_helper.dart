@@ -34,18 +34,42 @@ class DatabaseHelper {
   }
 
   // function to create a new table
-  Future _onCreate(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,  
-        username TEXT NOT NULL,  
-        password TEXT NOT NULL,  
-        email TEXT NOT NULL,  
-        gender TEXT,  
-        age INTEGER 
-      )
-    ''');
-  }
+  // function to create new tables
+Future _onCreate(Database db, int version) async {
+  await db.execute('''
+    CREATE TABLE users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,  
+      username TEXT NOT NULL,  
+      password TEXT NOT NULL,  
+      email TEXT NOT NULL,  
+      gender TEXT,  
+      age INTEGER 
+    )
+  ''');
+  await db.execute('''
+    CREATE TABLE workouts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      steps TEXT NOT NULL,
+      time INTEGER
+    )
+  ''');
+  await db.execute('''
+    CREATE TABLE meals (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      calories INTEGER
+    )
+  ''');
+  await db.execute('''
+    CREATE TABLE progress (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      date TEXT NOT NULL,
+      calories INTEGER
+    )
+  ''');
+}
+
 
   // insert user data
   Future<int> insertUser(User user) async {

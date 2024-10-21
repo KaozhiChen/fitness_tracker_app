@@ -1,3 +1,4 @@
+import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'router.dart' as router;
 
@@ -17,6 +18,10 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: router.generateRoute,
       theme: ThemeData(
         splashColor: Colors.transparent,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: primary,
+          secondary: secondary,
+        ),
       ),
     );
   }

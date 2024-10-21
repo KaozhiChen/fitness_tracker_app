@@ -1,5 +1,9 @@
 import 'package:fitness_tracker_app/pages/home_page.dart';
+import 'package:fitness_tracker_app/pages/profile.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
+import 'package:fitness_tracker_app/pages/workout_tracker_screen.dart';
+import 'package:fitness_tracker_app/pages/meal_planner_screen.dart';
+import 'package:fitness_tracker_app/pages/progress_tracking_screen.dart';
 import 'package:flutter/material.dart';
 
 class RootApp extends StatefulWidget {
@@ -17,11 +21,14 @@ class _RootAppState extends State<RootApp> {
     return Scaffold(
       body: IndexedStack(
         index: pageIndex,
-        children: const [
-          HomePage(),
+        children: [
           // here to display different pages, do this like home page
-          Center(child: Text('Chart Page')),
-          Center(child: Text('Profile Page')),
+          // the order of pages should be consistent with the navigation order
+          HomePage(),
+          WorkoutTrackerScreen(),
+          ProgressTrackingScreen(),
+          MealPlannerScreen(),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -32,10 +39,13 @@ class _RootAppState extends State<RootApp> {
           });
         },
         selectedItemColor: thirdColor,
+        unselectedItemColor: secondary,
         enableFeedback: false,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'Chart'),
+          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'Workouts'),
+          BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'Progress'),
+          BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: 'Meals'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
