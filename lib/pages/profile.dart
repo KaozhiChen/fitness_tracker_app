@@ -106,31 +106,43 @@ class ProfilePage extends StatelessWidget {
                   subtitle: Text("New York, USA"),
                 ),
               ),
-
-              // 操作按钮
-              const SizedBox(height: 30),
-              ElevatedButton.icon(
-                onPressed: () {
-                  // 更改密码逻辑
-                },
-                icon: const Icon(Icons.lock_outline),
-                label: const Text("Change Password"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+              const Card(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                child: ListTile(
+                  leading: Icon(Icons.location_city),
+                  title: Text("Goals"),
+                  subtitle: Text("Workout 2 hours"),
                 ),
               ),
-              const SizedBox(height: 15),
+              // 操作按钮
+              const SizedBox(height: 20),
+
+              InkWell(
+                onTap: () {},
+                child: const Text(
+                  'Change password',
+                  style: TextStyle(
+                      color: primary,
+                      decoration: TextDecoration.underline,
+                      decorationColor: primary),
+                ),
+              ),
+
+              const SizedBox(height: 20),
               ElevatedButton.icon(
                 onPressed: () {
                   // 退出登录逻辑
                 },
-                icon: const Icon(Icons.logout),
-                label: const Text("Logout"),
+                icon: const Icon(
+                  Icons.logout,
+                  color: white,
+                ),
+                label: const Text(
+                  "Logout",
+                  style: TextStyle(color: white),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
+                  backgroundColor: thirdColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -143,4 +155,3 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
-
