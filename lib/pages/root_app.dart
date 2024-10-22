@@ -21,6 +21,7 @@ class _RootAppState extends State<RootApp> {
     return Scaffold(
       body: IndexedStack(
         index: pageIndex,
+        meals_progress_workouts
         children: [
           // here to display different pages, do this like home page
           // the order of pages should be consistent with the navigation order
@@ -28,6 +29,7 @@ class _RootAppState extends State<RootApp> {
           WorkoutTrackerScreen(),
           ProgressTrackingScreen(),
           MealPlannerScreen(),
+          Center(child: Text('Chart Page')),
           ProfilePage(),
         ],
       ),
