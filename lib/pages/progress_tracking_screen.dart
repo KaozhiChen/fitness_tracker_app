@@ -4,6 +4,8 @@ import '../services/database_helper.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class ProgressTrackingScreen extends StatefulWidget {
+  const ProgressTrackingScreen({super.key});
+
   @override
   _ProgressTrackingScreenState createState() => _ProgressTrackingScreenState();
 }
@@ -29,7 +31,7 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Progress Tracking')),
+      appBar: AppBar(title: const Text('Progress Tracking')),
       body: Column(
         children: [
           SizedBox(height: 300, child: _buildProgressChart()),
@@ -39,7 +41,8 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text('Date: ${progressData[index]['date']}'),
-                  subtitle: Text('Calories burned: ${progressData[index]['calories']}'),
+                  subtitle: Text(
+                      'Calories burned: ${progressData[index]['calories']}'),
                 );
               },
             ),

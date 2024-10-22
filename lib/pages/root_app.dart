@@ -21,16 +21,15 @@ class _RootAppState extends State<RootApp> {
     return Scaffold(
       body: IndexedStack(
         index: pageIndex,
-        meals_progress_workouts
+        // meals_progress_workouts
         children: [
           // here to display different pages, do this like home page
           // the order of pages should be consistent with the navigation order
-          HomePage(),
+          const HomePage(),
           WorkoutTrackerScreen(),
           ProgressTrackingScreen(),
           MealPlannerScreen(),
-          Center(child: Text('Chart Page')),
-          ProfilePage(),
+          const ProfilePage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -45,8 +44,10 @@ class _RootAppState extends State<RootApp> {
         enableFeedback: false,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'Workouts'),
-          BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'Progress'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.fitness_center), label: 'Workouts'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.pie_chart), label: 'Progress'),
           BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: 'Meals'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],

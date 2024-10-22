@@ -3,6 +3,8 @@ import 'package:sqflite/sqflite.dart';
 import '../services/database_helper.dart';
 
 class WorkoutTrackerScreen extends StatefulWidget {
+  const WorkoutTrackerScreen({super.key});
+
   @override
   _WorkoutTrackerScreenState createState() => _WorkoutTrackerScreenState();
 }
@@ -29,13 +31,13 @@ class _WorkoutTrackerScreenState extends State<WorkoutTrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Workout Tracker')),
+      appBar: AppBar(title: const Text('Workout Tracker')),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Filter workouts',
                 border: OutlineInputBorder(),
               ),
@@ -63,7 +65,8 @@ class _WorkoutTrackerScreenState extends State<WorkoutTrackerScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => WorkoutDetailScreen(workout: workouts[index]),
+                        builder: (context) =>
+                            WorkoutDetailScreen(workout: workouts[index]),
                       ),
                     );
                   },
@@ -79,7 +82,7 @@ class _WorkoutTrackerScreenState extends State<WorkoutTrackerScreen> {
 
 class WorkoutDetailScreen extends StatelessWidget {
   final Map<String, dynamic> workout;
-  WorkoutDetailScreen({required this.workout});
+  const WorkoutDetailScreen({super.key, required this.workout});
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +93,10 @@ class WorkoutDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Steps:'),
-            SizedBox(height: 8),
+            const Text('Steps:'),
+            const SizedBox(height: 8),
             Text(workout['steps']),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text('Time: ${workout['time']} minutes'),
           ],
         ),

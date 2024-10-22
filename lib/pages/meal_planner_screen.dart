@@ -3,6 +3,8 @@ import 'package:sqflite/sqflite.dart';
 import '../services/database_helper.dart';
 
 class MealPlannerScreen extends StatefulWidget {
+  const MealPlannerScreen({super.key});
+
   @override
   _MealPlannerScreenState createState() => _MealPlannerScreenState();
 }
@@ -34,13 +36,13 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Meal Planner')),
+      appBar: AppBar(title: const Text('Meal Planner')),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Log meal',
                 border: OutlineInputBorder(),
               ),
