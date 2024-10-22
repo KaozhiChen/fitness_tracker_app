@@ -1,154 +1,139 @@
+import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _ageController = TextEditingController();
-
-  String? _selectedGender;
-  double _stepGoal = 10000;
-
-  bool _notificationsEnabled = true;
-  bool _darkMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings/Profile'),
+        title: const Text('Profile'),
+        backgroundColor: primary,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              // 编辑资料逻辑
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                'Personal Information',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-
-                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                    return 'Please enter a valid email';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _ageController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Age'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your age';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(labelText: 'Gender'),
-                value: _selectedGender,
-                items: ['Male', 'Female', 'Other']
-                    .map((gender) =>
-                        DropdownMenuItem(value: gender, child: Text(gender)))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedGender = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select your gender';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 32),
-              const Text(
-                'Goals',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              const Text('Step Goal (Daily)'),
-              Slider(
-                value: _stepGoal,
-                min: 1000,
-                max: 20000,
-                divisions: 19,
-                label: '${_stepGoal.round()} steps',
-                onChanged: (double value) {
-                  setState(() {
-                    _stepGoal = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 32),
-              const Text(
-                'Preferences',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              SwitchListTile(
-                title: const Text('Enable Notifications'),
-                value: _notificationsEnabled,
-                onChanged: (bool value) {
-                  setState(() {
-                    _notificationsEnabled = value;
-                  });
-                },
-              ),
-              SwitchListTile(
-                title: const Text('Dark Mode'),
-                value: _darkMode,
-                onChanged: (bool value) {
-                  setState(() {
-                    _darkMode = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 32),
+              // 用户头像部分
               Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Settings Updated')),
-                      );
-                    }
-                  },
-                  child: const Text('Save Changes'),
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.grey[300],
+                      // backgroundImage: const AssetImage(
+                      //     "assets/images/profile_placeholder.png"), // 用户头像图片
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 36,
+                        height: 36,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: secondary,
+                        ),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.camera_alt,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            // 更换头像逻辑
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // 用户名和邮箱
+              const Text(
+                'John Doe',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 4),
+              const Text(
+                'johndoe@example.com',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+              const SizedBox(height: 20),
+
+              // 用户详细信息（性别、年龄等）
+              const Card(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                child: ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text("Gender"),
+                  subtitle: Text("Male"),
+                ),
+              ),
+              const Card(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                child: ListTile(
+                  leading: Icon(Icons.cake),
+                  title: Text("Age"),
+                  subtitle: Text("25"),
+                ),
+              ),
+              const Card(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                child: ListTile(
+                  leading: Icon(Icons.phone),
+                  title: Text("Phone Number"),
+                  subtitle: Text("+1 234 567 890"),
+                ),
+              ),
+              const Card(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                child: ListTile(
+                  leading: Icon(Icons.location_city),
+                  title: Text("Address"),
+                  subtitle: Text("New York, USA"),
+                ),
+              ),
+
+              // 操作按钮
+              const SizedBox(height: 30),
+              ElevatedButton.icon(
+                onPressed: () {
+                  // 更改密码逻辑
+                },
+                icon: const Icon(Icons.lock_outline),
+                label: const Text("Change Password"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              ElevatedButton.icon(
+                onPressed: () {
+                  // 退出登录逻辑
+                },
+                icon: const Icon(Icons.logout),
+                label: const Text("Logout"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
               ),
             ],
