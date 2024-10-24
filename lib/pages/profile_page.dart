@@ -1,4 +1,3 @@
-import 'package:fitness_tracker_app/widgets/goal_card.dart';
 import 'package:fitness_tracker_app/widgets/user_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -112,7 +111,21 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: "Email",
                       subtitle: user.email,
                     ),
-                    const GoalCard(),
+                    UserInfoCard(
+                      icon: Icons.height,
+                      title: "Height",
+                      subtitle: user.height.toString(),
+                    ),
+                    UserInfoCard(
+                      icon: Icons.scale,
+                      title: "Weight",
+                      subtitle: user.weight.toString(),
+                    ),
+                    UserInfoCard(
+                      icon: Icons.flag,
+                      title: "Goal",
+                      subtitle: user.goal.toString(),
+                    ),
 
                     // change password
                     const SizedBox(height: 20),

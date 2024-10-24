@@ -5,6 +5,9 @@ class User {
   final String email;
   final String gender;
   final int age;
+  final double? height;
+  final double? weight;
+  final String? goal;
 
   // constructor
   User({
@@ -14,6 +17,9 @@ class User {
     required this.email,
     required this.gender,
     required this.age,
+    this.height,
+    this.weight,
+    this.goal,
   });
 
   // User => Map
@@ -25,6 +31,9 @@ class User {
       'email': email,
       'gender': gender,
       'age': age,
+      'height': height,
+      'weight': weight,
+      'goal': goal,
     };
   }
 
@@ -37,6 +46,34 @@ class User {
       email: map['email'],
       gender: map['gender'],
       age: map['age'],
+      height: map['height'] != null ? map['height'] as double : null,
+      weight: map['weight'] != null ? map['weight'] as double : null,
+      goal: map['goal'],
+    );
+  }
+
+  // Copy method for updating User object
+  User copyWith({
+    int? id,
+    String? username,
+    String? password,
+    String? email,
+    String? gender,
+    int? age,
+    double? height,
+    double? weight,
+    String? goal,
+  }) {
+    return User(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      password: password ?? this.password,
+      email: email ?? this.email,
+      gender: gender ?? this.gender,
+      age: age ?? this.age,
+      height: height ?? this.height,
+      weight: weight ?? this.weight,
+      goal: goal ?? this.goal,
     );
   }
 }

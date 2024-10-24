@@ -45,7 +45,10 @@ class DatabaseHelper {
       password TEXT NOT NULL,  
       email TEXT NOT NULL,  
       gender TEXT,  
-      age INTEGER 
+      age INTEGER,
+      height REAL,  
+      weight REAL,  
+      goal TEXT
     )
   ''');
     await db.execute('''
@@ -120,5 +123,11 @@ class DatabaseHelper {
     }
 
     return null;
+  }
+
+  // delete database
+  Future<void> deleteDatabase() async {
+    String path = join(await getDatabasesPath(), 'user_database.db');
+    await databaseFactory.deleteDatabase(path);
   }
 }
