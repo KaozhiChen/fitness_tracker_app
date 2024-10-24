@@ -25,34 +25,34 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // 用户头像部分
+              // profile photo
               Center(
                 child: Stack(
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 60,
-                      backgroundColor: Colors.grey[300],
-                      // backgroundImage: const AssetImage(
-                      //     "assets/images/profile_placeholder.png"), // 用户头像图片
+                      // backgroundColor: Colors.grey[300],
+                      backgroundImage: AssetImage("assets/images/logo.png"),
                     ),
                     Positioned(
                       bottom: 0,
                       right: 0,
                       child: Container(
-                        width: 36,
-                        height: 36,
+                        width: 26,
+                        height: 26,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: secondary,
                         ),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: const Center(
+                            child: Icon(
+                              Icons.camera_alt_outlined,
+                              color: white,
+                              size: 20,
+                            ),
                           ),
-                          onPressed: () {
-                            // 更换头像逻辑
-                          },
                         ),
                       ),
                     ),
@@ -61,7 +61,7 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // 用户名和邮箱
+              // user name and email
               const Text(
                 'John Doe',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -73,15 +73,28 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              // 用户详细信息（性别、年龄等）
-              const Card(
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                child: ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text("Gender"),
-                  subtitle: Text("Male"),
+              // user informations
+              Card(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                child: Container(
+                  decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [primary, secondary],
+                      ),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: const ListTile(
+                    textColor: white,
+                    leading: Icon(
+                      Icons.person,
+                      color: white,
+                    ),
+                    title: Text("Gender"),
+                    subtitle: Text("Male"),
+                  ),
                 ),
               ),
+
               const Card(
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                 child: ListTile(
