@@ -1,4 +1,4 @@
-import 'package:fitness_tracker_app/models/user.dart';
+import 'package:fitness_tracker_app/widgets/goal_card.dart';
 import 'package:fitness_tracker_app/widgets/user_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -85,15 +85,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
                     // user name and email
                     Text(
-                      user.username,
+                      'Hi,${user.username}!',
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      user.email,
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
+                    // const SizedBox(height: 4),
+                    // Text(
+                    //   user.email,
+                    //   style: const TextStyle(fontSize: 16, color: Colors.grey),
+                    // ),
                     const SizedBox(height: 20),
 
                     // user informations
@@ -107,6 +107,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: "Age",
                       subtitle: user.age.toString(),
                     ),
+                    UserInfoCard(
+                      icon: Icons.mail,
+                      title: "Email",
+                      subtitle: user.email,
+                    ),
+                    const GoalCard(),
 
                     // change password
                     const SizedBox(height: 20),
