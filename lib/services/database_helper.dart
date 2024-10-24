@@ -7,6 +7,9 @@ class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
   static Database? _database;
 
+  // Provide a static getter to access the instance
+  static DatabaseHelper get instance => _instance;
+
   factory DatabaseHelper() {
     return _instance;
   }
@@ -33,10 +36,9 @@ class DatabaseHelper {
     );
   }
 
-  // function to create a new table
   // function to create new tables
-Future _onCreate(Database db, int version) async {
-  await db.execute('''
+  Future _onCreate(Database db, int version) async {
+    await db.execute('''
     CREATE TABLE users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,  
       username TEXT NOT NULL,  
@@ -46,7 +48,7 @@ Future _onCreate(Database db, int version) async {
       age INTEGER 
     )
   ''');
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE workouts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -54,22 +56,21 @@ Future _onCreate(Database db, int version) async {
       time INTEGER
     )
   ''');
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE meals (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       calories INTEGER
     )
   ''');
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE progress (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       date TEXT NOT NULL,
       calories INTEGER
     )
   ''');
-}
-
+  }
 
   // insert user data
   Future<int> insertUser(User user) async {
@@ -77,12 +78,30 @@ Future _onCreate(Database db, int version) async {
     return await db.insert('users', user.toMap());
   }
 
+  // get all users
   Future<List<User>> getAllUsers() async {
     Database db = await database;
     final List<Map<String, dynamic>> userMaps = await db.query('users');
     return List.generate(userMaps.length, (i) {
       return User.fromMap(userMaps[i]);
     });
+  }
+
+  // get current user
+  Future<User?> getCurrentUser(int id) async {
+    final db = await database;
+
+    // check user info via id
+    List<Map<String, dynamic>> result = await db.query(
+      'users',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (result.isNotEmpty) {
+      return User.fromMap(result.first);
+    }
+    return null;
   }
 
   // verify user login

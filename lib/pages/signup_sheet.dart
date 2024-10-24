@@ -3,6 +3,7 @@ import 'package:fitness_tracker_app/models/user.dart';
 import 'package:fitness_tracker_app/services/database_helper.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpBottomSheet extends StatefulWidget {
   const SignUpBottomSheet({super.key});
@@ -194,6 +195,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                     final navigator = Navigator.of(context);
                     if (_formKey.currentState!.validate()) {
                       try {
+                        // create User and insert to database
                         User newUser = User(
                           username: _usernameController.text,
                           email: _emailController.text,
@@ -202,7 +204,13 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                           age: int.parse(_ageController.text),
                         );
 
-                        await DatabaseHelper().insertUser(newUser);
+                        // get userId
+                        int userId = await DatabaseHelper().insertUser(newUser);
+
+                        // save userId to SharedPreferences
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        await prefs.setInt('userId', userId);
 
                         // query all users
                         // List<User> allUsers =
