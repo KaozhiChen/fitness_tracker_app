@@ -233,11 +233,6 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                            onPressed: () async {
-                              await DatabaseHelper().deleteDatabase();
-                            },
-                            child: const Text('delete')),
                         Container(
                           width: 50,
                           height: 50,
