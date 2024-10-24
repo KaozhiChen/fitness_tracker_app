@@ -89,11 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                    // const SizedBox(height: 4),
-                    // Text(
-                    //   user.email,
-                    //   style: const TextStyle(fontSize: 16, color: Colors.grey),
-                    // ),
+
                     const SizedBox(height: 20),
 
                     // user informations
@@ -101,31 +97,67 @@ class _ProfilePageState extends State<ProfilePage> {
                       icon: Icons.person,
                       title: "Gender",
                       subtitle: user.gender,
+                      onEdit: () {
+                        _showEditDialog(context, "Gender", (newValue) {
+                          userProvider
+                              .updateUser(user.copyWith(gender: newValue));
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.cake,
                       title: "Age",
                       subtitle: user.age.toString(),
+                      onEdit: () {
+                        _showEditDialog(context, "Gender", (newValue) {
+                          userProvider
+                              .updateUser(user.copyWith(gender: newValue));
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.mail,
                       title: "Email",
                       subtitle: user.email,
+                      onEdit: () {
+                        _showEditDialog(context, "Gender", (newValue) {
+                          userProvider
+                              .updateUser(user.copyWith(gender: newValue));
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.height,
                       title: "Height",
                       subtitle: user.height.toString(),
+                      onEdit: () {
+                        _showEditDialog(context, "Gender", (newValue) {
+                          userProvider
+                              .updateUser(user.copyWith(gender: newValue));
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.scale,
                       title: "Weight",
                       subtitle: user.weight.toString(),
+                      onEdit: () {
+                        _showEditDialog(context, "Gender", (newValue) {
+                          userProvider
+                              .updateUser(user.copyWith(gender: newValue));
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.flag,
                       title: "Goal",
                       subtitle: user.goal.toString(),
+                      onEdit: () {
+                        _showEditGoalDialog(context, user.goal.toString(),
+                            (newGoal) {
+                          userProvider.updateUser(user.copyWith(goal: newGoal));
+                        });
+                      },
                     ),
 
                     // change password
@@ -173,6 +205,85 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showEditDialog(
+      BuildContext context, String fieldName, Function(String) onSave) {
+    TextEditingController controller = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Edit $fieldName"),
+          content: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              labelText: "Enter new $fieldName",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                onSave(controller.text);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showEditGoalDialog(
+      BuildContext context, String currentGoal, Function(String) onSave) {
+    String selectedGoal = currentGoal;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Edit Goal"),
+          content: DropdownButtonFormField<String>(
+            value: selectedGoal,
+            items: ['lose weight', 'maintain weight', 'gain weight']
+                .map((goal) => DropdownMenuItem(
+                      value: goal,
+                      child: Text(goal),
+                    ))
+                .toList(),
+            onChanged: (value) {
+              selectedGoal = value!;
+            },
+            decoration: const InputDecoration(
+              labelText: "Select your goal",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                onSave(selectedGoal);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
