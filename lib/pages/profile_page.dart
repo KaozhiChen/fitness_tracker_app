@@ -1,3 +1,5 @@
+import 'package:fitness_tracker_app/models/user.dart';
+import 'package:fitness_tracker_app/widgets/user_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
@@ -95,61 +97,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(height: 20),
 
                     // user informations
-                    Card(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 25),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [primary, secondary],
-                            ),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: ListTile(
-                          textColor: white,
-                          leading: const Icon(
-                            Icons.person,
-                            color: white,
-                          ),
-                          title: const Text("Gender"),
-                          subtitle: Text(user.gender),
-                        ),
-                      ),
+                    UserInfoCard(
+                      icon: Icons.person,
+                      title: "Gender",
+                      subtitle: user.gender,
                     ),
-                    Card(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 25),
-                      child: ListTile(
-                        leading: const Icon(Icons.cake),
-                        title: const Text("Age"),
-                        subtitle: Text(user.age.toString()),
-                      ),
-                    ),
-                    const Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                      child: ListTile(
-                        leading: Icon(Icons.phone),
-                        title: Text("Phone Number"),
-                        subtitle: Text("+1 234 567 890"),
-                      ),
-                    ),
-                    const Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                      child: ListTile(
-                        leading: Icon(Icons.location_city),
-                        title: Text("Address"),
-                        subtitle: Text("New York, USA"),
-                      ),
-                    ),
-                    const Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                      child: ListTile(
-                        leading: Icon(Icons.location_city),
-                        title: Text("Goals"),
-                        subtitle: Text("Workout 2 hours"),
-                      ),
+                    UserInfoCard(
+                      icon: Icons.cake,
+                      title: "Age",
+                      subtitle: user.age.toString(),
                     ),
 
                     // change password
