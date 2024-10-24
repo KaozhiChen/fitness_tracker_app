@@ -2,6 +2,7 @@ import 'package:fitness_tracker_app/widgets/user_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/user_provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -141,8 +142,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton.icon(
-                      onPressed: () {
-                        //logout
+                      onPressed: () async {
+                        // clean user data in local storage
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        await prefs.clear();
+
+                        // nav to login page
+                        Navigator.of(context).pushReplacementNamed('/login');
                       },
                       icon: const Icon(
                         Icons.logout,

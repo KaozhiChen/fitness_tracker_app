@@ -7,8 +7,6 @@ Route<dynamic> generateRoute(RouteSettings setting) {
   switch (setting.name) {
     case '/login':
       return MaterialPageRoute(builder: (context) => const LoginPage());
-    // case '/signup':
-    //   return MaterialPageRoute(builder: (context) => const SignUpPage());
     case '/root_app':
       return MaterialPageRoute(builder: (context) => const RootApp());
     default:
