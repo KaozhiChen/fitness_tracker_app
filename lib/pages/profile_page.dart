@@ -98,9 +98,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: "Gender",
                       subtitle: user.gender,
                       onEdit: () {
-                        _showEditDialog(context, "Gender", (newValue) {
-                          userProvider
-                              .updateUser(user.copyWith(gender: newValue));
+                        _showEditDialog(context, "Gender", (newValue) async {
+                          // create a User with new info
+                          final updatedUser = user.copyWith(gender: newValue);
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
                         });
                       },
                     ),
@@ -109,9 +112,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: "Age",
                       subtitle: user.age.toString(),
                       onEdit: () {
-                        _showEditDialog(context, "Gender", (newValue) {
-                          userProvider
-                              .updateUser(user.copyWith(gender: newValue));
+                        _showEditDialog(context, "Age", (newValue) async {
+                          // create a User with new info
+                          final updatedUser =
+                              user.copyWith(age: int.parse(newValue));
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
                         });
                       },
                     ),
@@ -120,9 +127,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: "Email",
                       subtitle: user.email,
                       onEdit: () {
-                        _showEditDialog(context, "Gender", (newValue) {
-                          userProvider
-                              .updateUser(user.copyWith(gender: newValue));
+                        _showEditDialog(context, "Email", (newValue) async {
+                          // create a User with new info
+                          final updatedUser = user.copyWith(email: newValue);
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
                         });
                       },
                     ),
@@ -131,9 +141,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: "Height",
                       subtitle: user.height.toString(),
                       onEdit: () {
-                        _showEditDialog(context, "Gender", (newValue) {
-                          userProvider
-                              .updateUser(user.copyWith(gender: newValue));
+                        _showEditDialog(context, "Height", (newValue) async {
+                          // create a User with new info
+                          final updatedUser =
+                              user.copyWith(height: double.parse(newValue));
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
                         });
                       },
                     ),
@@ -142,9 +156,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: "Weight",
                       subtitle: user.weight.toString(),
                       onEdit: () {
-                        _showEditDialog(context, "Gender", (newValue) {
-                          userProvider
-                              .updateUser(user.copyWith(gender: newValue));
+                        _showEditDialog(context, "Weight", (newValue) async {
+                          // create a User with new info
+                          final updatedUser =
+                              user.copyWith(weight: double.parse(newValue));
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
                         });
                       },
                     ),
@@ -154,8 +172,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       subtitle: user.goal.toString(),
                       onEdit: () {
                         _showEditGoalDialog(context, user.goal.toString(),
-                            (newGoal) {
-                          userProvider.updateUser(user.copyWith(goal: newGoal));
+                            (newGoal) async {
+                          final updatedUser = user.copyWith(goal: newGoal);
+                          await userProvider.updateUserAsync(updatedUser);
                         });
                       },
                     ),
@@ -231,8 +250,8 @@ class _ProfilePageState extends State<ProfilePage> {
               child: const Text("Cancel"),
             ),
             TextButton(
-              onPressed: () {
-                onSave(controller.text);
+              onPressed: () async {
+                await onSave(controller.text);
                 Navigator.of(context).pop();
               },
               child: const Text("Save"),
@@ -275,8 +294,8 @@ class _ProfilePageState extends State<ProfilePage> {
               child: const Text("Cancel"),
             ),
             TextButton(
-              onPressed: () {
-                onSave(selectedGoal);
+              onPressed: () async {
+                await onSave(selectedGoal);
                 Navigator.of(context).pop();
               },
               child: const Text("Save"),

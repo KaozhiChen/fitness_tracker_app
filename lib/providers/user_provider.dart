@@ -22,9 +22,16 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  // update User
+  // update User and update UI
   void updateUser(User user) {
     _user = user;
+    notifyListeners();
+  }
+
+  // function to upadte user into database
+  Future<void> updateUserAsync(User user) async {
+    _user = user;
+    await DatabaseHelper().updateUser(user);
     notifyListeners();
   }
 }

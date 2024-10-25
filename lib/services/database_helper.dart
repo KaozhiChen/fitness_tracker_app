@@ -130,4 +130,16 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'user_database.db');
     await databaseFactory.deleteDatabase(path);
   }
+
+  // update user info into database
+  Future<int> updateUser(User user) async {
+    final db = await database;
+
+    return await db.update(
+      'users',
+      user.toMap(),
+      where: 'id = ?',
+      whereArgs: [user.id],
+    );
+  }
 }
