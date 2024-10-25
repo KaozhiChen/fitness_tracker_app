@@ -1,67 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
-import '../services/database_helper.dart';
-import 'package:fl_chart/fl_chart.dart';
+import '../services/calendar.dart';
+import '../services/progress_tracker.dart';
 
-class ProgressTrackingScreen extends StatefulWidget {
-  const ProgressTrackingScreen({super.key});
+class ProgressScreen extends StatefulWidget {
+  const ProgressScreen({super.key});
 
   @override
-  _ProgressTrackingScreenState createState() => _ProgressTrackingScreenState();
+  State<ProgressScreen> createState() => _ProgressScreenState();
 }
 
-class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
-  List<Map<String, dynamic>> progressData = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchProgressData();
-  }
-
-  _fetchProgressData() async {
-    final db = await _dbHelper.database;
-    var result = await db.query('progress');
-    setState(() {
-      progressData = result;
-    });
-  }
+class _ProgressScreenState extends State<ProgressScreen> {
+  DateTime today = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Progress Tracking')),
-      body: Column(
-        children: [
-          SizedBox(height: 300, child: _buildProgressChart()),
-          Expanded(
-            child: ListView.builder(
-              itemCount: progressData.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('Date: ${progressData[index]['date']}'),
-                  subtitle: Text(
-                      'Calories burned: ${progressData[index]['calories']}'),
-                );
-              },
-            ),
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 10, 30, 20),
+          child: Align(
+            alignment: Alignment.topRight,
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProgressChart() {
-    return LineChart(LineChartData(
-      lineBarsData: [
-        LineChartBarData(
-          spots: progressData
-              .map((data) =>
-                  FlSpot(data['date'].toDouble(), data['calories'].toDouble()))
-              .toList(),
+        ),
+        // Embed Calendar widget
+        Align(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+            child: Calendar(today: today),
+          ),
+        ),
+        // Embed ProgressTracker widget
+        Align(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(30, 20, 30, 40),
+            child: const ProgressTracker(),
+          ),
         ),
       ],
-    ));
+    );
   }
 }
