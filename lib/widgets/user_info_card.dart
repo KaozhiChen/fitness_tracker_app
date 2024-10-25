@@ -5,12 +5,14 @@ class UserInfoCard extends StatefulWidget {
   final IconData icon;
   final String title;
   final String subtitle;
+  final VoidCallback onEdit;
 
   const UserInfoCard({
     super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
+    required this.onEdit,
   });
 
   @override
@@ -36,6 +38,12 @@ class _UserInfoCardState extends State<UserInfoCard> {
           ),
           title: Text(widget.title),
           subtitle: Text(widget.subtitle),
+          trailing: IconButton(
+              onPressed: widget.onEdit,
+              icon: const Icon(
+                Icons.settings,
+                color: white,
+              )),
         ),
       ),
     );

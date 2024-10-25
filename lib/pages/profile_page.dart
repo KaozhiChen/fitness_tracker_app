@@ -2,6 +2,7 @@ import 'package:fitness_tracker_app/widgets/user_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/user_provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -25,12 +26,6 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: const Text('Profile'),
         backgroundColor: primary,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {},
-          )
-        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -88,11 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                    // const SizedBox(height: 4),
-                    // Text(
-                    //   user.email,
-                    //   style: const TextStyle(fontSize: 16, color: Colors.grey),
-                    // ),
+
                     const SizedBox(height: 20),
 
                     // user informations
@@ -100,37 +91,94 @@ class _ProfilePageState extends State<ProfilePage> {
                       icon: Icons.person,
                       title: "Gender",
                       subtitle: user.gender,
+                      onEdit: () {
+                        _showEditDialog(context, "Gender", (newValue) async {
+                          // create a User with new info
+                          final updatedUser = user.copyWith(gender: newValue);
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.cake,
                       title: "Age",
                       subtitle: user.age.toString(),
+                      onEdit: () {
+                        _showEditDialog(context, "Age", (newValue) async {
+                          // create a User with new info
+                          final updatedUser =
+                              user.copyWith(age: int.parse(newValue));
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.mail,
                       title: "Email",
                       subtitle: user.email,
+                      onEdit: () {
+                        _showEditDialog(context, "Email", (newValue) async {
+                          // create a User with new info
+                          final updatedUser = user.copyWith(email: newValue);
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.height,
                       title: "Height",
                       subtitle: user.height.toString(),
+                      onEdit: () {
+                        _showEditDialog(context, "Height", (newValue) async {
+                          // create a User with new info
+                          final updatedUser =
+                              user.copyWith(height: double.parse(newValue));
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.scale,
                       title: "Weight",
                       subtitle: user.weight.toString(),
+                      onEdit: () {
+                        _showEditDialog(context, "Weight", (newValue) async {
+                          // create a User with new info
+                          final updatedUser =
+                              user.copyWith(weight: double.parse(newValue));
+
+                          // use Provider to update UI and save new value to database
+                          await userProvider.updateUserAsync(updatedUser);
+                        });
+                      },
                     ),
                     UserInfoCard(
                       icon: Icons.flag,
                       title: "Goal",
                       subtitle: user.goal.toString(),
+                      onEdit: () {
+                        _showEditGoalDialog(context, user.goal.toString(),
+                            (newGoal) async {
+                          final updatedUser = user.copyWith(goal: newGoal);
+                          await userProvider.updateUserAsync(updatedUser);
+                        });
+                      },
                     ),
 
                     // change password
                     const SizedBox(height: 20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        _showChangePasswordDialog(context);
+                      },
                       child: const Text(
                         'Change password',
                         style: TextStyle(
@@ -141,8 +189,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton.icon(
-                      onPressed: () {
-                        //logout
+                      onPressed: () async {
+                        // clean user data in local storage
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        await prefs.clear();
+
+                        // nav to login page
+                        Navigator.of(context).pushReplacementNamed('/login');
                       },
                       icon: const Icon(
                         Icons.logout,
@@ -166,6 +220,156 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
+    );
+  }
+
+  // show edit other user info dialog
+  void _showEditDialog(
+      BuildContext context, String fieldName, Function(String) onSave) {
+    TextEditingController controller = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Edit $fieldName"),
+          content: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              labelText: "Enter new $fieldName",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                await onSave(controller.text);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // show edit goal dialog
+  void _showEditGoalDialog(
+      BuildContext context, String currentGoal, Function(String) onSave) {
+    String selectedGoal = currentGoal;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Edit Goal"),
+          content: DropdownButtonFormField<String>(
+            value: selectedGoal,
+            items: ['lose weight', 'maintain weight', 'gain weight']
+                .map((goal) => DropdownMenuItem(
+                      value: goal,
+                      child: Text(goal),
+                    ))
+                .toList(),
+            onChanged: (value) {
+              selectedGoal = value!;
+            },
+            decoration: const InputDecoration(
+              labelText: "Select your goal",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                await onSave(selectedGoal);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // show change password dialog
+  void _showChangePasswordDialog(BuildContext context) {
+    final TextEditingController oldPasswordController = TextEditingController();
+    final TextEditingController newPasswordController = TextEditingController();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final user = userProvider.user;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Change Password"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: oldPasswordController,
+                decoration: const InputDecoration(
+                  labelText: "Enter old password",
+                ),
+                obscureText: true,
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: newPasswordController,
+                decoration: const InputDecoration(
+                  labelText: "Enter new password",
+                ),
+                obscureText: true,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                if (user != null) {
+                  if (oldPasswordController.text == user.password) {
+                    // update user object
+                    final updatedUser =
+                        user.copyWith(password: newPasswordController.text);
+                    await userProvider.updateUserAsync(updatedUser);
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Password changed successfully')),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Old password is incorrect')),
+                    );
+                  }
+                }
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
     );
   }
 }

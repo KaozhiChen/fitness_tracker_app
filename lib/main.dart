@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Fitness Tracker App',
-        initialRoute: '/login',
+        initialRoute: '/welcome',
         onGenerateRoute: router.generateRoute,
         theme: ThemeData(
           splashColor: Colors.transparent,
