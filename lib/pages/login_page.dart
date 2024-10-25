@@ -1,8 +1,13 @@
 import 'package:fitness_tracker_app/models/user.dart';
+
 import 'package:fitness_tracker_app/services/database_helper.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+import '../providers/user_provider.dart';
 import 'signup_sheet.dart';
 
 class LoginPage extends StatefulWidget {
@@ -158,10 +163,19 @@ class _LoginPageState extends State<LoginPage> {
                         final navigator = Navigator.of(context);
                         String username = _usernameController.text;
                         String password = _passwordController.text;
+                        // verify
                         User? user = await DatabaseHelper()
                             .validateLogin(username, password);
                         if (user != null) {
                           // login successfully
+                          // save userId to local storage
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setInt('userId', user.id!);
+
+                          // use Provider manage user data
+                          Provider.of<UserProvider>(context, listen: false)
+                              .updateUser(user);
                           navigator.pushNamed('/root_app');
                         } else {
                           messenger.showSnackBar(

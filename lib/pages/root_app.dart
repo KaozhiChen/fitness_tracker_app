@@ -1,8 +1,8 @@
 import 'package:fitness_tracker_app/pages/home_page.dart';
-import 'package:fitness_tracker_app/pages/profile.dart';
+import 'package:fitness_tracker_app/pages/profile_page.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:fitness_tracker_app/pages/workout_tracker_screen.dart';
-import 'package:fitness_tracker_app/pages/meal_planner_screen.dart';
+import 'package:fitness_tracker_app/pages/meal_tracker_screen.dart';
 import 'package:fitness_tracker_app/pages/progress_tracking_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,14 +22,14 @@ class _RootAppState extends State<RootApp> {
       body: IndexedStack(
         index: pageIndex,
         // meals_progress_workouts
-        children: [
+        children: const [
           // here to display different pages, do this like home page
           // the order of pages should be consistent with the navigation order
-          const HomePage(),
-          WorkoutTrackerScreen(),
-          ProgressTrackingScreen(),
-          MealPlannerScreen(),
-          const ProfilePage(),
+          HomePage(),
+          WorkoutScreen(),
+          ProgressScreen(),
+          MealScreen(),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

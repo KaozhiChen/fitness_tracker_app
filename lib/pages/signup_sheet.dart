@@ -3,6 +3,7 @@ import 'package:fitness_tracker_app/models/user.dart';
 import 'package:fitness_tracker_app/services/database_helper.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpBottomSheet extends StatefulWidget {
   const SignUpBottomSheet({super.key});
@@ -18,13 +19,16 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _heightController = TextEditingController();
+  final TextEditingController _weightController = TextEditingController();
 
   String? _seletedGender;
+  String _selectedGoal = 'lose weight';
 
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: 0.6,
+      initialChildSize: 0.7,
       minChildSize: 0.4,
       maxChildSize: 0.8,
       expand: false,
@@ -181,7 +185,78 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                             ),
                           ),
                         ],
-                      )
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _heightController,
+                              cursorColor: labelColor,
+                              decoration: const InputDecoration(
+                                labelText: 'Height (cm)',
+                                labelStyle: TextStyle(color: labelColor),
+                                floatingLabelStyle:
+                                    TextStyle(color: labelColor),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: primary),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your height';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: TextFormField(
+                              controller: _weightController,
+                              cursorColor: labelColor,
+                              decoration: const InputDecoration(
+                                labelText: 'Weight (kg)',
+                                labelStyle: TextStyle(color: labelColor),
+                                floatingLabelStyle:
+                                    TextStyle(color: labelColor),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: primary),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your weight';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          labelText: 'Goal',
+                          labelStyle: TextStyle(color: labelColor),
+                        ),
+                        value: _selectedGoal,
+                        items: ['lose weight', 'maintain weight', 'gain weight']
+                            .map((goal) => DropdownMenuItem(
+                                value: goal, child: Text(goal)))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedGoal = value!;
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -194,15 +269,25 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                     final navigator = Navigator.of(context);
                     if (_formKey.currentState!.validate()) {
                       try {
+                        // create User and insert to database
                         User newUser = User(
                           username: _usernameController.text,
                           email: _emailController.text,
                           password: _passwordController.text,
                           gender: _seletedGender!,
                           age: int.parse(_ageController.text),
+                          height: double.parse(_heightController.text),
+                          weight: double.parse(_weightController.text),
+                          goal: _selectedGoal,
                         );
 
-                        await DatabaseHelper().insertUser(newUser);
+                        // get userId
+                        int userId = await DatabaseHelper().insertUser(newUser);
+
+                        // save userId to SharedPreferences
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        await prefs.setInt('userId', userId);
 
                         // query all users
                         // List<User> allUsers =
