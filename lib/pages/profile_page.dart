@@ -26,12 +26,6 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: const Text('Profile'),
         backgroundColor: primary,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {},
-          )
-        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -182,7 +176,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     // change password
                     const SizedBox(height: 20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        _showChangePasswordDialog(context);
+                      },
                       child: const Text(
                         'Change password',
                         style: TextStyle(
@@ -227,6 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  // show edit other user info dialog
   void _showEditDialog(
       BuildContext context, String fieldName, Function(String) onSave) {
     TextEditingController controller = TextEditingController();
@@ -262,6 +259,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  // show edit goal dialog
   void _showEditGoalDialog(
       BuildContext context, String currentGoal, Function(String) onSave) {
     String selectedGoal = currentGoal;
@@ -296,6 +294,75 @@ class _ProfilePageState extends State<ProfilePage> {
             TextButton(
               onPressed: () async {
                 await onSave(selectedGoal);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // show change password dialog
+  void _showChangePasswordDialog(BuildContext context) {
+    final TextEditingController oldPasswordController = TextEditingController();
+    final TextEditingController newPasswordController = TextEditingController();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final user = userProvider.user;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Change Password"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: oldPasswordController,
+                decoration: const InputDecoration(
+                  labelText: "Enter old password",
+                ),
+                obscureText: true,
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: newPasswordController,
+                decoration: const InputDecoration(
+                  labelText: "Enter new password",
+                ),
+                obscureText: true,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                if (user != null) {
+                  if (oldPasswordController.text == user.password) {
+                    // update user object
+                    final updatedUser =
+                        user.copyWith(password: newPasswordController.text);
+                    await userProvider.updateUserAsync(updatedUser);
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Password changed successfully')),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Old password is incorrect')),
+                    );
+                  }
+                }
                 Navigator.of(context).pop();
               },
               child: const Text("Save"),
