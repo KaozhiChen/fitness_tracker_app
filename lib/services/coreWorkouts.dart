@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../pages/workout_tracker_screen.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 
-
 class CoreModel extends WorkoutModel {
   String muscle = 'Core';
   CoreModel(super.name, super.met, super.isSelected, super.description);
@@ -110,16 +109,14 @@ Duration: 15-20 reps for 3-4 sets
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0,25,0,0),
+              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
               child: SizedBox(
                 height: selectedWorkouts.isEmpty ? 500 : 332,
                 child: ScrollConfiguration(
-                  behavior:
-                      const ScrollBehavior(),
+                  behavior: const ScrollBehavior(),
                   child: GlowingOverscrollIndicator(
                     axisDirection: AxisDirection.down,
-                    color:
-                        primary, 
+                    color: primary,
                     child: ListView.builder(
                       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                       itemCount: workoutsCore.length,
@@ -167,7 +164,6 @@ Duration: 15-20 reps for 3-4 sets
     );
   }
 
-  
   Widget CoreWorkoutItem(String name, String muscle, double met,
       bool isSelected, String description, int index) {
     return Card(

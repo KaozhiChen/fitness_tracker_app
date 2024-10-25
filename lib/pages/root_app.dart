@@ -1,6 +1,5 @@
 import 'package:fitness_tracker_app/pages/home_page.dart';
 import 'package:fitness_tracker_app/pages/profile_page.dart';
-import 'package:fitness_tracker_app/pages/profile_page.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:fitness_tracker_app/pages/workout_tracker_screen.dart';
 import 'package:fitness_tracker_app/pages/meal_tracker_screen.dart';
