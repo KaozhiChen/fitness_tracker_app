@@ -316,25 +316,27 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (context) {
         return AlertDialog(
           title: const Text("Change Password"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: oldPasswordController,
-                decoration: const InputDecoration(
-                  labelText: "Enter old password",
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: oldPasswordController,
+                  decoration: const InputDecoration(
+                    labelText: "Enter old password",
+                  ),
+                  obscureText: true,
                 ),
-                obscureText: true,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: newPasswordController,
-                decoration: const InputDecoration(
-                  labelText: "Enter new password",
+                const SizedBox(height: 16),
+                TextField(
+                  controller: newPasswordController,
+                  decoration: const InputDecoration(
+                    labelText: "Enter new password",
+                  ),
+                  obscureText: true,
                 ),
-                obscureText: true,
-              ),
-            ],
+              ],
+            ),
           ),
           actions: [
             TextButton(
