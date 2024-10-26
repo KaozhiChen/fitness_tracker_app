@@ -1,12 +1,10 @@
 import 'package:fitness_tracker_app/models/user.dart';
 import 'package:fitness_tracker_app/pages/forget_password_sheet.dart';
-
 import 'package:fitness_tracker_app/services/database_helper.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/user_provider.dart';
 import 'signup_sheet.dart';
