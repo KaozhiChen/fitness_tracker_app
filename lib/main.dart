@@ -1,14 +1,14 @@
 import 'package:fitness_tracker_app/providers/workout_provider.dart';
 import 'package:fitness_tracker_app/providers/user_provider.dart';
-import 'package:fitness_tracker_app/services/database_helper.dart';
+// import 'package:fitness_tracker_app/services/database_helper.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'router.dart' as router;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await DatabaseHelper.instance.deleteDatabase();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await DatabaseHelper.instance.deleteDatabase();
   runApp(const MyApp());
 }
 

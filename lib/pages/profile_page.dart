@@ -42,36 +42,36 @@ class _ProfilePageState extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // profile photo
-                    Center(
+                    const Center(
                       child: Stack(
                         children: [
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 60,
                             backgroundImage:
                                 AssetImage("assets/images/logo.png"),
                           ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              width: 26,
-                              height: 26,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: secondary,
-                              ),
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.camera_alt_outlined,
-                                    color: white,
-                                    size: 20,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Positioned(
+                          //   bottom: 0,
+                          //   right: 0,
+                          //   child: Container(
+                          //     width: 26,
+                          //     height: 26,
+                          //     decoration: const BoxDecoration(
+                          //       shape: BoxShape.circle,
+                          //       color: secondary,
+                          //     ),
+                          //     child: GestureDetector(
+                          //       onTap: () {},
+                          //       child: const Center(
+                          //         child: Icon(
+                          //           Icons.camera_alt_outlined,
+                          //           color: white,
+                          //           size: 20,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

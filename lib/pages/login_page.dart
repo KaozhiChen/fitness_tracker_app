@@ -39,16 +39,25 @@ class _LoginPageState extends State<LoginPage> {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            top: 20,
-          ),
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.7,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            child: const ForgetPasswordSheet(),
-          ),
+        return DraggableScrollableSheet(
+          initialChildSize: 0.6,
+          minChildSize: 0.25,
+          maxChildSize: 0.7,
+          expand: false,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 16,
+                right: 16,
+                top: 16,
+              ),
+              child: SingleChildScrollView(
+                controller: scrollController,
+                child: const ForgetPasswordSheet(),
+              ),
+            );
+          },
         );
       },
     );
@@ -243,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           width: 8,
                         ),
-                        Text("Or"),
+                        // Text("Or"),
                         SizedBox(
                           width: 8,
                         ),
@@ -256,42 +265,42 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border:
-                                  Border.all(color: black.withOpacity(0.1))),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/google_icon.svg",
-                              width: 20,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border:
-                                  Border.all(color: black.withOpacity(0.1))),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/facebook_icon.svg",
-                              width: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Container(
+                    //       width: 50,
+                    //       height: 50,
+                    //       decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(12),
+                    //           border:
+                    //               Border.all(color: black.withOpacity(0.1))),
+                    //       child: Center(
+                    //         child: SvgPicture.asset(
+                    //           "assets/images/google_icon.svg",
+                    //           width: 20,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 12,
+                    //     ),
+                    //     Container(
+                    //       width: 50,
+                    //       height: 50,
+                    //       decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(12),
+                    //           border:
+                    //               Border.all(color: black.withOpacity(0.1))),
+                    //       child: Center(
+                    //         child: SvgPicture.asset(
+                    //           "assets/images/facebook_icon.svg",
+                    //           width: 20,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     const SizedBox(
                       height: 12,
                     ),
