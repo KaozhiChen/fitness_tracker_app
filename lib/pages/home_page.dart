@@ -4,7 +4,6 @@ import 'package:fitness_tracker_app/services/progress_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
