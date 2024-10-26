@@ -1,4 +1,6 @@
+import 'package:fitness_tracker_app/providers/user_provider.dart';
 import 'package:fitness_tracker_app/providers/workout_provider.dart';
+import 'package:fitness_tracker_app/services/progress_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:provider/provider.dart';
@@ -30,144 +32,134 @@ class _HomePageState extends State<HomePage> {
         title: const Text('User Dashboard'),
         backgroundColor: primary,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
-              child: Column(
-                children: [
-                  Consumer<WorkoutProvider>(
-                      builder: (context, workoutProvider, child) {
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+            Consumer<WorkoutProvider>(
+              builder: (context, workoutProvider, child) {
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            CircleAvatar(
+                              radius: 60,
+                              backgroundImage:
+                                  AssetImage("assets/images/logo.png"),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 18,
+                        ),
+                        Consumer<UserProvider>(
+                            builder: (context, userProvider, child) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Hi ${userProvider.user?.username}!',
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          );
+                        }),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Daily Summary',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Daily Summary',
+                                const Text(
+                                  'Workouts Completed',
                                   style: TextStyle(
-                                    fontSize: 24,
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  '${workoutProvider.workoutsCompleted}',
+                                  style: const TextStyle(
+                                    fontSize: 28,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Icon(
-                                  Icons.assessment,
-                                  color: primary,
-                                  size: 30,
-                                ),
                               ],
                             ),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      'Workouts Completed',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      '${workoutProvider.workoutsCompleted}',
-                                      style: const TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                                const Text(
+                                  'Calories Burned',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      'Calories Burned',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      '${workoutProvider.caloriesBurned.toStringAsFixed(1)} kcal',
-                                      style: const TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                                const SizedBox(height: 5),
+                                Text(
+                                  '${workoutProvider.caloriesBurned.toStringAsFixed(1)} kcal',
+                                  style: const TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),
                           ],
                         ),
-                      ),
-                    );
-                  }),
-                  const SizedBox(height: 20),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    color: secondary,
-                    child: ListTile(
-                      leading:
-                          const Icon(Icons.fitness_center, color: Colors.white),
-                      title: const Text('Start Workout',
-                          style: TextStyle(color: Colors.white)),
-                      onTap: () {
-                        // Add start workout functionality
-                      },
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    color: thirdColor,
-                    child: ListTile(
-                      leading: const Icon(Icons.fastfood, color: Colors.white),
-                      title: const Text('Log Meal',
-                          style: TextStyle(color: Colors.white)),
-                      onTap: () {
-                        // Add log meal functionality
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    color: fourthColor,
-                    child: ListTile(
-                      leading:
-                          const Icon(Icons.insert_chart, color: Colors.white),
-                      title: const Text('View Progress',
-                          style: TextStyle(color: Colors.white)),
-                      onTap: () {
-                        // Add view progress functionality
-                      },
-                    ),
-                  ),
-                ],
+                );
+              },
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            const Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(30, 20, 30, 40),
+                child: ProgressTracker(),
               ),
             ),
+            const SizedBox(height: 20),
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              color: secondary,
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

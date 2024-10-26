@@ -16,8 +16,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 30, 20),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(0, 10, 30, 20),
           child: Align(
             alignment: Alignment.topRight,
           ),
@@ -31,11 +31,11 @@ class _ProgressScreenState extends State<ProgressScreen> {
           ),
         ),
         // Embed ProgressTracker widget
-        Align(
+        const Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(30, 20, 30, 40),
-            child: const ProgressTracker(),
+            padding: EdgeInsets.fromLTRB(30, 20, 30, 40),
+            child: ProgressTracker(),
           ),
         ),
       ],
