@@ -1,4 +1,4 @@
-import 'package:fitness_tracker_app/models/workout_provider.dart';
+import 'package:fitness_tracker_app/providers/workout_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
 import 'package:provider/provider.dart';

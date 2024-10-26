@@ -1,4 +1,4 @@
-import 'package:fitness_tracker_app/models/workout_provider.dart';
+import 'package:fitness_tracker_app/providers/workout_provider.dart';
 import 'package:fitness_tracker_app/providers/user_provider.dart';
 import 'package:fitness_tracker_app/services/database_helper.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
