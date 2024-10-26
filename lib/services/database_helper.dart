@@ -115,6 +115,21 @@ class DatabaseHelper {
     return null;
   }
 
+  // function to validateUserEmail
+  Future<User?> validateUserEmail(String username, String email) async {
+    Database db = await database;
+    List<Map<String, dynamic>> result = await db.query(
+      'users',
+      where: 'username = ? AND email = ?',
+      whereArgs: [username, email],
+    );
+
+    if (result.isNotEmpty) {
+      return User.fromMap(result.first);
+    }
+    return null;
+  }
+
   // Insert event
   Future<int> insertEvent(Event event) async {
     Database db = await database;

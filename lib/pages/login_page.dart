@@ -1,4 +1,5 @@
 import 'package:fitness_tracker_app/models/user.dart';
+import 'package:fitness_tracker_app/pages/forget_password_sheet.dart';
 
 import 'package:fitness_tracker_app/services/database_helper.dart';
 import 'package:fitness_tracker_app/theme/colors.dart';
@@ -31,6 +32,26 @@ class _LoginPageState extends State<LoginPage> {
         builder: (BuildContext context) {
           return const SignUpBottomSheet();
         });
+  }
+
+  void _showForgetPasswordSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            top: 20,
+          ),
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.7,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            child: const ForgetPasswordSheet(),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -140,10 +161,15 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Text(
-                      "Forget Password?",
-                      style: TextStyle(
-                          decoration: TextDecoration.underline, fontSize: 14),
+                    GestureDetector(
+                      onTap: () {
+                        _showForgetPasswordSheet(context);
+                      },
+                      child: const Text(
+                        "Forget Password?",
+                        style: TextStyle(
+                            decoration: TextDecoration.underline, fontSize: 14),
+                      ),
                     ),
                     const SizedBox(
                       height: 30,
