@@ -1,3 +1,6 @@
+import 'package:fitness_tracker_app/models/workout_provider.dart';
+import 'package:provider/provider.dart';
+
 import '../services/database_helper.dart';
 import '../services/upperWorkouts.dart';
 import 'package:flutter/material.dart';
@@ -153,6 +156,11 @@ class WorkoutScreen extends StatelessWidget {
                                 allWorkouts[i]['month'],
                                 allWorkouts[i]['year'],
                                 caloriesBurned);
+                        Provider.of<WorkoutProvider>(context, listen: false)
+                            .loadDailyData(
+                                allWorkouts[i]['day'],
+                                allWorkouts[i]['month'],
+                                allWorkouts[i]['year']);
                         totalCaloriesBurned += caloriesBurned;
                       }
                     }

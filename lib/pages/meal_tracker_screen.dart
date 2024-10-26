@@ -10,7 +10,8 @@ class MealScreen extends StatefulWidget {
 }
 
 class _MealScreenState extends State<MealScreen> {
-  final TextEditingController _calorieController = TextEditingController(); // Controller for manual calorie input
+  final TextEditingController _calorieController =
+      TextEditingController(); // Controller for manual calorie input
   bool databaseUpdated = false; // Indicates if the database was updated
 
   @override
@@ -36,10 +37,12 @@ class _MealScreenState extends State<MealScreen> {
         databaseUpdated
             ? const Center(
                 child: Text('Calories added to database.',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)))
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500)))
             : const Center(
                 child: Text('Enter your calories.',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))),
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500))),
         const SizedBox(height: 20),
         manualCalorieInput(),
       ],
@@ -50,7 +53,8 @@ class _MealScreenState extends State<MealScreen> {
   Widget manualCalorieInput() {
     return Column(
       children: [
-        const SizedBox(height: 30), // Increased space between label and input field
+        const SizedBox(
+            height: 30), // Increased space between label and input field
         SizedBox(
           width: 337.1,
           child: Material(
@@ -65,7 +69,7 @@ class _MealScreenState extends State<MealScreen> {
                 border: OutlineInputBorder(),
                 hintText: "Enter Calories Here",
                 hintStyle: TextStyle(color: Color.fromARGB(255, 131, 129, 125)),
-                              ),
+              ),
               validator: (value) {
                 if (value == null) {
                   return null;
@@ -79,7 +83,8 @@ class _MealScreenState extends State<MealScreen> {
             ),
           ),
         ),
-        const SizedBox(height: 20), // Space between input field and submit button
+        const SizedBox(
+            height: 20), // Space between input field and submit button
         buttonTemplate(() {
           if (_calorieController.text.isNotEmpty) {
             addCaloriesToDatabase(_calorieController.text);
@@ -131,6 +136,7 @@ class _MealScreenState extends State<MealScreen> {
   void addCaloriesToDatabase(String calories) async {
     await DatabaseHelper.instance.incrementCaloriesForDay(DateTime.now().day,
         DateTime.now().month, DateTime.now().year, int.parse(calories));
+    final today = DateTime.now();
   }
 
   // Function to show a SnackBar message indicating calorie intake has been updated
@@ -141,9 +147,9 @@ class _MealScreenState extends State<MealScreen> {
     // Retrieve the calories for the current day from the database
     int calories = await DatabaseHelper.instance.getCaloriesForDay(
         DateTime.now().day, DateTime.now().month, DateTime.now().year);
-        
+
     textForSnackBar = (calories >= 0) ? 'Calorie Intake Updated!' : 'Error';
-    
+
     messenger.showSnackBar(
       SnackBar(
         content: Text(textForSnackBar),
