@@ -3,8 +3,7 @@
 Mobile App Development CSC4360 Project 1 Fitness Tracker App
 By Kaozhi Chen & Hamza Malikyar
 
-YouTube Channel with Presentation: http://www.youtube.com/@FitnessCoachingMobileApp-m8s
-
+YouTube Link with Presentation: [http://www.youtube.com/@FitnessCoachingMobileApp-m8s](https://youtu.be/O6IrdF6f-SA)
 
 ## Required
 - Any IDE that can read code flutter projects (Visual Studio Code, Android Studio...
