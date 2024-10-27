@@ -30,3 +30,7 @@ YouTube Channel with Presentation: http://www.youtube.com/@FitnessCoachingMobile
  - intl: ^0.19.0
  - google_mlkit_text_recognition: ^0.14.0
  - image_picker: ^1.1.2
+
+## Run
+- flutter pub get
+- flutter run
