@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/calendar.dart';
-import '../services/progress_tracker.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -28,14 +27,6 @@ class _ProgressScreenState extends State<ProgressScreen> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
             child: Calendar(today: today),
-          ),
-        ),
-        // Embed ProgressTracker widget
-        const Align(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(30, 20, 30, 40),
-            child: ProgressTracker(),
           ),
         ),
       ],

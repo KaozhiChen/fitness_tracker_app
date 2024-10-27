@@ -92,7 +92,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: "Gender",
                       subtitle: user.gender,
                       onEdit: () {
-                        _showEditDialog(context, "Gender", (newValue) async {
+                        _showEditGenderDialog(context, user.gender,
+                            (newValue) async {
                           // create a User with new info
                           final updatedUser = user.copyWith(gender: newValue);
 
@@ -190,13 +191,44 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(height: 20),
                     ElevatedButton.icon(
                       onPressed: () async {
-                        // clean user data in local storage
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        await prefs.clear();
+                        // Show confirmation dialog
+                        bool confirmLogout = await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("Confirm Logout"),
+                              content: const Text(
+                                  "Are you sure you want to log out?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(false); // Cancel logout
+                                  },
+                                  child: const Text("Cancel"),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(true); // Confirm logout
+                                  },
+                                  child: const Text("Logout"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
 
-                        // nav to login page
-                        Navigator.of(context).pushReplacementNamed('/login');
+                        // If user confirmed, proceed with logout
+                        if (confirmLogout == true) {
+                          // Clean user data in local storage
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.clear();
+
+                          // Navigate to login page
+                          Navigator.of(context).pushReplacementNamed('/login');
+                        }
                       },
                       icon: const Icon(
                         Icons.logout,
@@ -212,7 +244,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                    ),
+                    )
                   ],
                 );
               }
@@ -249,6 +281,51 @@ class _ProfilePageState extends State<ProfilePage> {
             TextButton(
               onPressed: () async {
                 await onSave(controller.text);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // show edit gender dialog
+  void _showEditGenderDialog(
+      BuildContext context, String currentGender, Function(String) onSave) {
+    String selectedGender = currentGender;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Edit Gender"),
+          content: DropdownButtonFormField<String>(
+            value: selectedGender,
+            items: ['Male', 'Female', 'Other']
+                .map((gender) => DropdownMenuItem(
+                      value: gender,
+                      child: Text(gender),
+                    ))
+                .toList(),
+            onChanged: (value) {
+              selectedGender = value!;
+            },
+            decoration: const InputDecoration(
+              labelText: "Select your gender",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                await onSave(selectedGender);
                 Navigator.of(context).pop();
               },
               child: const Text("Save"),

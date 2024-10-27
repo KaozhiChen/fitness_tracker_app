@@ -1,6 +1,5 @@
 import 'package:fitness_tracker_app/providers/workout_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../services/database_helper.dart';
 import '../services/upperWorkouts.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +25,14 @@ class WorkoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cardTextStyle = Theme.of(context).textTheme.displaySmall!.copyWith(
-          color: const Color.fromRGBO(255, 255, 255, 1),
+          color: white,
           fontSize: 28,
+          fontWeight:
+              FontWeight.bold, // Adding a bold font for better readability
         );
     return Scaffold(
+      backgroundColor:
+          primary, // Set the primary color as the background for a clean look
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -47,10 +50,20 @@ class WorkoutScreen extends StatelessWidget {
                     ),
                   );
                 },
-                    Text(
-                      'Upper Body Workouts',
-                      style: cardTextStyle,
+                    Container(
+                      padding: const EdgeInsets.all(
+                          16), // Adding padding for better spacing
+                      decoration: BoxDecoration(
+                        color: secondary, // Secondary color for cards
+                        borderRadius: BorderRadius.circular(
+                            12), // Rounded corners for a modern look
+                      ),
+                      child: Text(
+                        'Upper Body Workouts',
+                        style: cardTextStyle,
+                      ),
                     )),
+                const SizedBox(height: 16), // Adding spacing between buttons
                 bigCardButton(
                   () {
                     Navigator.push(
@@ -60,11 +73,19 @@ class WorkoutScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  Text(
-                    'Lower Body Workouts',
-                    style: cardTextStyle,
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: thirdColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      'Lower Body Workouts',
+                      style: cardTextStyle,
+                    ),
                   ),
                 ),
+                const SizedBox(height: 16),
                 bigCardButton(() {
                   Navigator.push(
                     context,
@@ -73,11 +94,18 @@ class WorkoutScreen extends StatelessWidget {
                     ),
                   );
                 },
-                    Text(
-                      'Core Workouts',
-                      style: cardTextStyle,
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: fourthColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        'Core Workouts',
+                        style: cardTextStyle,
+                      ),
                     )),
-                // Button to calculate calories burned for the current day’s workouts
+                const SizedBox(height: 16),
                 bigCardButton(() async {
                   // Querying all workouts for the current day
                   List<Map<String, dynamic>> allWorkouts =
@@ -103,9 +131,9 @@ class WorkoutScreen extends StatelessWidget {
                             title: Text(
                               '\n\n\nHow long did you take doing ${allWorkouts[i]['workoutName']}?',
                               style: const TextStyle(
-                                  backgroundColor: primary,
-                                  color: Color(0xFFe9e6df),
-                                  fontWeight: FontWeight.bold),
+                                color: Color(0xFFe9e6df),
+                                fontWeight: FontWeight.bold,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                             titleTextStyle: cardTextStyle,
@@ -166,9 +194,18 @@ class WorkoutScreen extends StatelessWidget {
                     }
                   }
                 },
-                    Text(
-                      'Calculate Calories Burned',
-                      style: cardTextStyle,
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color:
+                            bgTextField, // Using bgTextField color for a light, neutral button
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        'Calculate Calories Burned',
+                        style: cardTextStyle.copyWith(
+                            color: black), // Black text for better contrast
+                      ),
                     )),
               ],
             ),
@@ -245,7 +282,7 @@ class WorkoutScreen extends StatelessWidget {
             child: Text(
               "Do selected Workouts (${selectedWorkouts.length})",
               style: const TextStyle(
-                  color: Color(0xFFe9e6df), fontWeight: FontWeight.bold),
+                  color: black, fontWeight: FontWeight.bold),
             ),
             onPressed: () async {
               final messenger = ScaffoldMessenger.of(context);

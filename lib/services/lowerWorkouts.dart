@@ -119,7 +119,7 @@ Duration: 12-15 reps for 3-4 sets
           ),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: primary,
+        backgroundColor: thirdColor,
       ),
       backgroundColor: const Color(0xFFe9e6df),
       body: SingleChildScrollView(child: Column(
@@ -172,7 +172,7 @@ Duration: 12-15 reps for 3-4 sets
                   Navigator.pop(context);
                 },
                 tooltip: 'Back To Home',
-                backgroundColor: primary,
+                backgroundColor: thirdColor,
                 child: const Icon(Icons.close),
               ),
             ),
@@ -187,7 +187,7 @@ Duration: 12-15 reps for 3-4 sets
   Widget LowerWorkoutItem(String name, String muscle, double met,
       bool isSelected, String description, int index) {
     return Card(
-      color: primary,
+      color: thirdColor,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListTile(

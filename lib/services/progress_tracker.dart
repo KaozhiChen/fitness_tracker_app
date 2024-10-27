@@ -56,11 +56,11 @@ class _ProgressTrackerState extends State<ProgressTracker> {
               bmr = Calculators().calcBMR(weight, height, age, gender);
               goalRange =
                   Calculators().calcGoalRange(bmr, goal).roundToDouble();
-              if (goal == 'Lose Weight') {
+              if (goal == 'lose weight') {
                 goalPrint = 'Calories to Lose Weight: < $goalRange';
-              } else if (goal == 'Gain Weight') {
+              } else if (goal == 'gain weight') {
                 goalPrint = 'Calories to Gain Weight: > $goalRange';
-              } else if (goal == 'Maintain Weight') {
+              } else if (goal == 'maintain weight') {
                 goalPrint = 'Calories to Maintain Weight: = $goalRange';
               }
 
@@ -230,6 +230,10 @@ class _ProgressTrackerState extends State<ProgressTracker> {
       text = '2500 -';
     } else if (value.toInt() == 3000) {
       text = '3000 -';
+    } else if (value.toInt() == 2500) {
+      text = '3500 -';
+    } else if (value.toInt() == 3000) {
+      text = '4000 -';
     } else {
       return Container();
     }
@@ -289,7 +293,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
       minX: 1,
       maxX: 5,
       minY: 0,
-      maxY: 3000,
+      maxY: 4000,
       extraLinesData: ExtraLinesData(
         horizontalLines: [
           HorizontalLine(
@@ -300,8 +304,8 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                 alignment: Alignment.topCenter,
                 labelResolver: (value) => goalPrint,
                 style: const TextStyle(
-                  color: Color(0xFF99a98c),
-                  fontSize: 12,
+                  color: thirdColor,
+                  fontSize: 8,
                   fontWeight: FontWeight.bold,
                 ),
               )),

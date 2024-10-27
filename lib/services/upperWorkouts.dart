@@ -107,7 +107,7 @@ Duration: muscle failure (as long as you can) for 2-3 sets
           ),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: primary,
+        backgroundColor: secondary,
       ),
       backgroundColor: const Color(0xFFe9e6df),
       body: SingleChildScrollView(child: Column(
@@ -122,7 +122,7 @@ Duration: muscle failure (as long as you can) for 2-3 sets
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
                 color:
-                    primary,
+                    secondary,
                 child: ListView.builder(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   itemCount: workoutsUpper.length,
@@ -158,7 +158,7 @@ Duration: muscle failure (as long as you can) for 2-3 sets
                   Navigator.pop(context);
                 },
                 tooltip: 'Back To Home',
-                backgroundColor: primary,
+                backgroundColor: secondary,
                 child: const Icon(Icons.close),
               ),
             ),
@@ -173,7 +173,7 @@ Duration: muscle failure (as long as you can) for 2-3 sets
   Widget UpperWorkoutItem(String name, String muscle, double met,
       bool isSelected, String description, int index) {
     return Card(
-      color: primary,
+      color: secondary,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListTile(
