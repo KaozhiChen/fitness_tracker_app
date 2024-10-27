@@ -92,7 +92,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: "Gender",
                       subtitle: user.gender,
                       onEdit: () {
-                        _showEditDialog(context, "Gender", (newValue) async {
+                        _showEditGenderDialog(context, user.gender,
+                            (newValue) async {
                           // create a User with new info
                           final updatedUser = user.copyWith(gender: newValue);
 
@@ -280,6 +281,51 @@ class _ProfilePageState extends State<ProfilePage> {
             TextButton(
               onPressed: () async {
                 await onSave(controller.text);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // show edit gender dialog
+  void _showEditGenderDialog(
+      BuildContext context, String currentGender, Function(String) onSave) {
+    String selectedGender = currentGender;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Edit Gender"),
+          content: DropdownButtonFormField<String>(
+            value: selectedGender,
+            items: ['Male', 'Female', 'Other']
+                .map((gender) => DropdownMenuItem(
+                      value: gender,
+                      child: Text(gender),
+                    ))
+                .toList(),
+            onChanged: (value) {
+              selectedGender = value!;
+            },
+            decoration: const InputDecoration(
+              labelText: "Select your gender",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                await onSave(selectedGender);
                 Navigator.of(context).pop();
               },
               child: const Text("Save"),
