@@ -15,18 +15,18 @@ YouTube Channel with Presentation: http://www.youtube.com/@FitnessCoachingMobile
 
 - Ensure you have the right dependencies in their updated versions
 - dependencies:
-  flutter:
+ - flutter:
     sdk: flutter
-  flutter_svg: ^1.0.0
-  sqflite: ^2.0.0+3
-  path: ^1.8.0
-  provider: ^6.1.2
-  shared_preferences: ^2.3.2
-  fl_chart: any
-  cupertino_icons: ^1.0.8
-  google_fonts: ^6.2.1
-  duration_picker: ^1.2.0
-  table_calendar: ^3.1.2
-  intl: ^0.19.0
-  google_mlkit_text_recognition: ^0.14.0
-  image_picker: ^1.1.2
+ - flutter_svg: ^1.0.0
+ - sqflite: ^2.0.0+3
+ - path: ^1.8.0
+ - provider: ^6.1.2
+ - shared_preferences: ^2.3.2
+ - fl_chart: any
+ - cupertino_icons: ^1.0.8
+ - google_fonts: ^6.2.1
+ - duration_picker: ^1.2.0
+ - table_calendar: ^3.1.2
+ - intl: ^0.19.0
+ - google_mlkit_text_recognition: ^0.14.0
+ - image_picker: ^1.1.2
