@@ -1,35 +1,109 @@
-# Fitness Tracker App
+# 🏋️‍♂️ Fitness Tracker App
 
-Mobile App Development CSC4360 Project 1 Fitness Tracker App
-By Kaozhi Chen & Hamza Malikyar
+A **feature-rich** Flutter application designed to help users track their workouts, set fitness goals, and monitor health metrics in real-time. Integrated with **Google Fit API** and **Firebase**, this app provides a seamless experience for fitness enthusiasts.
 
-YouTube Link with Presentation: [http://www.youtube.com/@FitnessCoachingMobileApp-m8s](https://youtu.be/O6IrdF6f-SA)
+---
 
-## Required
-- Any IDE that can read code flutter projects (Visual Studio Code, Android Studio...
+## 🎥 Demo Screenshots
 
-- Virtual Device Emulator or Physical Device to run the application on
+<table align="center">
+  <tr>
+    <td><img src="assets/demo/splash.gif" alt="Splash Page" width="200"></td>
+    <td width="30"></td> <!-- 添加间距 -->
+    <td><img src="assets/demo/sign_up.gif" alt="Sign Up Page" width="200"></td>
+    <td width="30"></td>
+    <td><img src="assets/demo/login.gif" alt="Login Page" width="200"></td>
+  </tr>
+  <tr height="30"></tr> <!-- 添加行间距 -->
+  <tr>
+    <td><img src="assets/demo/workout.gif" alt="Workout Page" width="200"></td>
+    <td width="30"></td>
+    <td><img src="assets/demo/progress.gif" alt="Progress Page" width="200"></td>
+    <td width="30"></td>
+    <td><img src="assets/demo/profile.gif" alt="Profile Page" width="200"></td>
+  </tr>
+</table>
 
-- Clone this repository and use a virtual or physical device to run the application on
+---
 
-- Ensure you have the right dependencies in their updated versions
-- dependencies:
- - flutter:
-    sdk: flutter
- - flutter_svg: ^1.0.0
- - sqflite: ^2.0.0+3
- - path: ^1.8.0
- - provider: ^6.1.2
- - shared_preferences: ^2.3.2
- - fl_chart: any
- - cupertino_icons: ^1.0.8
- - google_fonts: ^6.2.1
- - duration_picker: ^1.2.0
- - table_calendar: ^3.1.2
- - intl: ^0.19.0
- - google_mlkit_text_recognition: ^0.14.0
- - image_picker: ^1.1.2
+## 🚀 Features
 
-## Run
-- flutter pub get
-- flutter run
+### **Core Pages**
+
+1. **Splash Page**
+
+   - Animated logo with a smooth transition to the login page.
+   - Enhances user experience with a polished first impression.
+
+2. **Login Page**
+
+   - Firebase Authentication for **secure user login**.
+   - "Forgot Password" functionality for easy account recovery.
+
+3. **Sign-Up Page**
+
+   - Users can register with **email and password**.
+   - Allows users to **set fitness goals** during the sign-up process.
+
+4. **Home Dashboard**
+
+   - Displays **daily step count, calories burned, and active minutes**.
+   - Provides an overview of **weekly progress** using visual charts.
+
+5. **Workout Tracking Page**
+
+   - Users can log **workout type, duration, and intensity**.
+   - Real-time synchronization.
+
+6. **Progress Visualization**
+
+   - Graph-based analysis of **historical fitness data**.
+   - Users can track improvements over time.
+
+7. **Profile Page**
+   - Users can update their **personal details and fitness goals**.
+   - Change password and log out options.
+
+---
+
+## 📊 Health Data Integration
+
+The app syncs with **Google Fit API** to collect real-time fitness data, including:
+
+✅ **Calorie burn estimation**  
+✅ **Workout session tracking**
+
+Users can also manually log their workouts to ensure a **comprehensive fitness record**.
+
+---
+
+## 💻 Tech Stack
+
+- **Frontend**: Flutter (Dart)
+- **Backend**: Firebase
+  - **Firestore** for storing user data and workout history.
+  - **Firebase Authentication** for secure user login.
+- **APIs**:
+  - **Google Fit API** for fetching fitness and health data.
+  - **Chart.js** (or other visualization libraries) for progress tracking.
+
+---
+
+## 🛠 How to Run the Project
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/KaozhiChen/fitness-tracker-app.git
+
+   cd fitness-tracker-app
+   ```
+
+1. **Install dependencies:**:
+   ```bash
+   flutter pub get
+   ```
+1. **Run the app:**:
+   ```bash
+   flutter run
+   ```
