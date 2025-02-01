@@ -6,23 +6,15 @@ A **feature-rich** Flutter application designed to help users track their workou
 
 ## 🎥 Demo Screenshots
 
-<table align="center" style="border-collapse: collapse; border: none;">
-  <tr>
-    <td><img src="assets/demo/splash.gif" alt="Splash Page" width="200"></td>
-    <td width="30"></td> <!-- 添加间距 -->
-    <td><img src="assets/demo/sign_up.gif" alt="Sign Up Page" width="200"></td>
-    <td width="30"></td>
-    <td><img src="assets/demo/login.gif" alt="Login Page" width="200"></td>
-  </tr>
-  <tr height="30"></tr> <!-- 添加行间距 -->
-  <tr>
-    <td><img src="assets/demo/workout.gif" alt="Workout Page" width="200"></td>
-    <td width="30"></td>
-    <td><img src="assets/demo/progress.gif" alt="Progress Page" width="200"></td>
-    <td width="30"></td>
-    <td><img src="assets/demo/profile.gif" alt="Profile Page" width="200"></td>
-  </tr>
-</table>
+<div align="center">
+  <img src="assets/demo/splash.gif" alt="Splash Page" width="200"> &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/demo/sign_up.gif" alt="Sign Up Page" width="200"> &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/demo/login.gif" alt="Login Page" width="200">
+  <br><br>
+  <img src="assets/demo/workout.gif" alt="Workout Page" width="200"> &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/demo/progress.gif" alt="Progress Page" width="200"> &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/demo/profile.gif" alt="Profile Page" width="200">
+</div>
 
 ---
 
