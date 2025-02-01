@@ -6,7 +6,7 @@ A **feature-rich** Flutter application designed to help users track their workou
 
 ## 🎥 Demo Screenshots
 
-<table align="center">
+<table align="center" style="border-collapse: collapse; border: none;">
   <tr>
     <td><img src="assets/demo/splash.gif" alt="Splash Page" width="200"></td>
     <td width="30"></td> <!-- 添加间距 -->
